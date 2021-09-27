@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_marginTop="0.5dp"
     tools:ignore="HardcodedText ,ButtonStyle, RtlHardcoded,NestedWeights">
-        <LinearLayout
+        <RelativeLayout
             android:layout_marginTop="0.1dp"
             android:layout_marginStart="0.9dp"
             android:layout_marginEnd="0.1dp"
@@ -31,15 +31,15 @@
             <TextView
                 android:id="@+id/textView_output_numbers"
                 android:layout_width="390dp"
-                android:layout_height="119dp"
+                android:layout_height="112dp"
+                android:layout_below="@+id/textView_input_numbers"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginTop="1dp"
                 android:gravity="end"
                 android:textColor="@android:color/holo_red_light"
                 android:textSize="40sp" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
 
         <LinearLayout

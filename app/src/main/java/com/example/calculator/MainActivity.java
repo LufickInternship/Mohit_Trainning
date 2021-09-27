@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity  {
     private final char MULTIPLICATION = '*';
     private final char DIVISION = '/';
     private final char EQU = '=';
-    private final char EXTRA = '@';
     private final char MODULUS = '%';
     private char ACTION;
     private double val1 = Double.NaN;
@@ -171,12 +170,11 @@ public class MainActivity extends AppCompatActivity  {
             if (t.getText().length() > 0) {
                 ACTION = DIVISION;
                 operation();
-                if (ifReallyDecimal()) {
-                    t.setText((int) val1 + "/");
+                if (!ifReallyDecimal()) {
+                    t2.setText(val1 + "/");
                 } else {
-                    t.setText(val1 + "/");
+                    t2.setText((int) val1 + "/");
                 }
-                t.setText(null);
             } else {
                 t.setText("Error");
             }
@@ -186,11 +184,8 @@ public class MainActivity extends AppCompatActivity  {
             if (t.getText().length() > 0) {
                 operation();
                 ACTION = EQU;
-                if (!ifReallyDecimal()) {
-                    t2.setText(/*t2.getText().toString() + String.valueOf(val2) + "=" + */String.valueOf(val1));
-                } else {
-                    t2.setText(/*t2.getText().toString() + String.valueOf(val2) + "=" + */String.valueOf((int) val1));
-                }
+                /*t2.getText().toString() + String.valueOf(val2) + "=" + */
+                t2.setText(String.valueOf(val1));
                 t.setText(null);
             } else {
                 t2.setText("Error");
@@ -262,10 +257,11 @@ public class MainActivity extends AppCompatActivity  {
                     val1 = val1 * val2;
                     break;
                 case DIVISION:
-                    val1 = val1 / val2;
-                    break;
-                case EXTRA:
-                    val1 = (-1) * val1;
+                    if (val2 == 0) {
+                        val1 = 0.0;
+                    } else {
+                        val1 /= val2;
+                    }
                     break;
                 case MODULUS:
                     val1 = val1 % val2;
@@ -288,36 +284,6 @@ public class MainActivity extends AppCompatActivity  {
         return val1 == (int) val1;
     }
 
-    private void noOperation() {
-        String inputExpression = t2.getText().toString();
-        if (!inputExpression.isEmpty() && !inputExpression.equals("Error")) {
-            if (inputExpression.contains("-")) {
-                inputExpression = inputExpression.replace("-", "");
-                t2.setText("");
-                val1 = Double.parseDouble(inputExpression);
-            }
-            if (inputExpression.contains("+")) {
-                inputExpression = inputExpression.replace("+", "");
-                t2.setText("");
-                val1 = Double.parseDouble(inputExpression);
-            }
-            if (inputExpression.contains("/")) {
-                inputExpression = inputExpression.replace("/", "");
-                t2.setText("");
-                val1 = Double.parseDouble(inputExpression);
-            }
-            if (inputExpression.contains("%")) {
-                inputExpression = inputExpression.replace("%", "");
-                t2.setText("");
-                val1 = Double.parseDouble(inputExpression);
-            }
-            if (inputExpression.contains("×")) {
-                inputExpression = inputExpression.replace("×", "");
-                t2.setText("");
-                val1 = Double.parseDouble(inputExpression);
-            }
-        }
-    }
 
     private void exceedLength() {
         if (t.getText().toString().length() > 10) {
